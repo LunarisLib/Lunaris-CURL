@@ -14,6 +14,24 @@ jobs:
         os: [ windows-latest, ubuntu-latest, macos-latest ]
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Install libcurl
+        shell: bash
+        run: |  
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then  
+            sudo apt install libcurl4-openssl-dev  
+          elif [ "${{ matrix.os }}" == "macos-latest" ]; then  
+            brew install curl  
+          elif [ "${{ matrix.os }}" == "windows-latest" ]; then 
+            choco install -y curl
+            echo "C:\ProgramData\chocolatey\bin" >> $env:GITHUB_PATH
+          fi
+      - name: Windows update path
+        if: ${{ matrix.os }} == "windows-latest"
+        shell: bash
+        run: |
+            curl --
+          #echo "PATH=$(pwd)/curl-path/bin;${PATH}" >> $GITHUB_ENV
+
       - name: Build
         uses: LunarisLib/actions/CMake@master
         with:
