@@ -66,21 +66,18 @@ if(NOT CURL_FOUND)
 
     # Set the appropriate variables to use libcurl in your project
     set(CURL_INCLUDE_DIR ${CURL_INSTALL_DIR}/include)
-    set(CURL_LIBRARY ${CURL_INSTALL_DIR}/lib/libcurl.a)  # Static library (adjust as necessary)
+    #set(CURL_LIBRARY ${CURL_INSTALL_DIR}/lib/libcurl.a)  # Static library (adjust as necessary)
 else()
     message(STATUS "libcurl found on system")
     # If CURL was found, no need to build it from source
     set(CURL_INCLUDE_DIR ${CURL_INCLUDE_DIRS})
-    set(CURL_LIBRARY ${CURL_LIBRARIES})
+    #set(CURL_LIBRARY ${CURL_LIBRARIES})
 endif()
 
-
-# Link with libcurl, but only after libcurl has been built and installed
-add_dependencies(${PROJECT_NAME} libcurl)
 
 
 target_include_directories(${PROJECT_NAME} PRIVATE 
     "../.."
     ${CURL_INCLUDE_DIR}
 )
-target_link_libraries(${PROJECT_NAME} PRIVATE ${CURL_LIBRARY})
+#target_link_libraries(${PROJECT_NAME} PRIVATE ${CURL_LIBRARY})
