@@ -37,7 +37,7 @@ if(NOT CURL_FOUND)
     # Get the latest git tag (latest release version) dynamically
     execute_process(
         COMMAND git ls-remote --tags ${CURL_REPO_URL}
-        COMMAND sed -n "s/.*refs\/tags\/\(curl-[0-9]*\_[0-9]*\_[0-9]*\)$/\1/p"  # Filter tag names
+        COMMAND sed -n "s/.*refs\\/tags\\/\\(curl-[0-9]*\\_[0-9]*\\_[0-9]*\\)$/\\1/p"  # Filter tag names
         COMMAND sort -V  # Sort versions in ascending order
         COMMAND tail -n 1  # Get the latest tag (last tag in sorted order)
         OUTPUT_VARIABLE CURL_VERSION
