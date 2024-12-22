@@ -25,12 +25,6 @@ jobs:
             choco install -y curl
             echo "C:\ProgramData\chocolatey\bin" >> $env:GITHUB_PATH
           fi
-      - name: Windows update path
-        if: ${{ matrix.os }} == "windows-latest"
-        shell: bash
-        run: |
-            curl --
-          #echo "PATH=$(pwd)/curl-path/bin;${PATH}" >> $GITHUB_ENV
 
       - name: Build
         uses: LunarisLib/actions/CMake@master
