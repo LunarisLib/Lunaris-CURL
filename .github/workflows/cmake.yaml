@@ -16,11 +16,11 @@ jobs:
     steps:
       - name: Install libcurl
         run: |  
-          if [ "${{ matrix.os }}" == "ubuntu" ]; then  
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then  
             sudo apt install libcurl4-openssl-dev  
-          elif [ "${{ matrix.os }}" == "macOS" ]; then  
+          elif [ "${{ matrix.os }}" == "macos-latest" ]; then  
             brew install curl  
-          elif [ "${{ matrix.os }}" == "windows" ]; then  
+          elif [ "${{ matrix.os }}" == "windows-latest" ]; then  
             choco install curl  
           fi
       - name: Build
