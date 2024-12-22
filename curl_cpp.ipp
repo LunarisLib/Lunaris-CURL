@@ -8,18 +8,21 @@ namespace http {
         
     // Write callBack Body
     static size_t __wbbcurl(char *c, size_t s, size_t n, void *p){
+        if (s * n == 0) return 0;
         std::string& str = *((std::string*)p);
         str.append(c, s * n);
         return s * n;
     }
     // Write callBack for Headers
     static size_t __wbhcurl(char *c, size_t s, size_t n, void *p){
+        if (s * n == 0) return 0;
         headers& head = *((headers*)p);
         head.push_back(std::string(c, s * n));
         return s * n;
     }
     // Read callBack from Streamstring
     static size_t __rbscurl(char* c, size_t s, size_t n, void* p) {
+        if (s * n == 0) return 0;
         std::stringstream& ss = *((std::stringstream*)p);
         ss.read(c, s * n);
         return ss.gcount();
@@ -33,6 +36,17 @@ namespace http {
     request& request::set_post_body(const std::string& s)
     {
         post_body = s;
+        return *this;
+    }
+    request& request::set_post_body(const pairs& hd)
+    {
+        post_body.clear();
+
+        for(const auto& each : hd) {
+            post_body += each.first + "=" + each.second + "&";
+        }
+        if (post_body.size()) post_body.pop_back();
+
         return *this;
     }
     request& request::set_file_data(const std::string& s)

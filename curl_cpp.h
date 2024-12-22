@@ -40,6 +40,7 @@ namespace http {
 
         request& set_headers(headers&&);
         request& set_post_body(const std::string&);
+        request& set_post_body(const pairs&);
         request& set_file_data(const std::string&);
         request& set_file_data(std::string&&);
     };
