@@ -18,5 +18,5 @@ jobs:
         uses: LunarisLib/actions/CMake@master
         with:
           checkout: 'true'
-          project_path: ./.examples/CMake_project/
+          project_path: ./.examples/CMake/
           artifact_name: ${{ matrix.os }}_PROJECT
