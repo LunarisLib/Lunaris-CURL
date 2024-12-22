@@ -15,10 +15,6 @@ endif ()
 file(GLOB_RECURSE source_list "src/*.cpp")
 add_executable(${PROJECT_NAME} ${source_list})
 
-target_include_directories(${PROJECT_NAME} PRIVATE 
-    "../.."
-)
-
 # Set C++ version
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 20
@@ -26,8 +22,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
  )
  
  
-# Try to find the system-installed CURL
-find_package(CURL REQUIRED)
+# Try to find the system-installed CURL without the REQUIRED flag to avoid failure
+find_package(CURL)
 
 if(NOT CURL_FOUND)
     message(STATUS "libcurl not found, downloading and building it...")
@@ -73,6 +69,14 @@ if(NOT CURL_FOUND)
     set(CURL_LIBRARY ${CURL_INSTALL_DIR}/lib/libcurl.a)  # Static library (adjust as necessary)
 else()
     message(STATUS "libcurl found on system")
+    # If CURL was found, no need to build it from source
+    set(CURL_INCLUDE_DIR ${CURL_INCLUDE_DIRS})
+    set(CURL_LIBRARY ${CURL_LIBRARIES})
 endif()
 
-target_link_libraries(${PROJECT_NAME} CURL::libcurl )
+
+target_include_directories(${PROJECT_NAME} PRIVATE 
+    "../.."
+    ${CURL_INCLUDE_DIR}
+)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${CURL_LIBRARY})
