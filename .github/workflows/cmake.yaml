@@ -14,6 +14,15 @@ jobs:
         os: [ windows-latest, ubuntu-latest, macos-latest ]
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Install libcurl
+        run: |  
+          if [ "${{ matrix.os }}" == "ubuntu" ]; then  
+            sudo apt install libcurl4-openssl-dev  
+          elif [ "${{ matrix.os }}" == "macOS" ]; then  
+            brew install curl  
+          elif [ "${{ matrix.os }}" == "windows" ]; then  
+            choco install curl  
+          fi
       - name: Build
         uses: LunarisLib/actions/CMake@master
         with:
