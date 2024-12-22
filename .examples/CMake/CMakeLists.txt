@@ -75,6 +75,10 @@ else()
 endif()
 
 
+# Link with libcurl, but only after libcurl has been built and installed
+add_dependencies(${PROJECT_NAME} libcurl)
+
+
 target_include_directories(${PROJECT_NAME} PRIVATE 
     "../.."
     ${CURL_INCLUDE_DIR}
