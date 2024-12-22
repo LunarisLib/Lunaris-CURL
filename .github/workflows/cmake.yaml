@@ -15,6 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Install libcurl
+        shell: bash
         run: |  
           if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then  
             sudo apt install libcurl4-openssl-dev  
