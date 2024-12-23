@@ -22,6 +22,8 @@ jobs:
         id: vcpkg
         shell: bash
         run: |
+          echo ${{toJSON(github)}}
+
           echo "Cloning vcpkg to ${{ runner.workspace }}/vcpkg"
 
           git clone https://github.com/microsoft/vcpkg.git ${{ runner.workspace }}/vcpkg
