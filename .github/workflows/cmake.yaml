@@ -6,6 +6,8 @@ on:
 #      - master
   workflow_dispatch:
 
+env:
+  PROJECT_PATH: "./.examples/CMake"
 
 jobs:
   build:
@@ -28,23 +30,32 @@ jobs:
           echo "Current GITHUB_PATH: $GITHUB_PATH"
           echo "Current PATH: $PATH"
           
-          cd vcpkg
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
 
-          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then  
             ./bootstrap-vcpkg.sh -disableMetrics
-          elif [ "${{ matrix.os }}" == "macos-latest" ]; then  
+            export PATH="${{ runner.workspace }}/vcpkg:$PATH"
+
+          elif [ "${{ matrix.os }}" == "macos-latest" ]; then
+
             ./bootstrap-vcpkg.sh -disableMetrics
-          elif [ "${{ matrix.os }}" == "windows-latest" ]; then 
+            export PATH="${{ runner.workspace }}/vcpkg:$PATH"
+
+          elif [ "${{ matrix.os }}" == "windows-latest" ]; then
+
             ./bootstrap-vcpkg.bat -disableMetrics
+            export PATH="${{ runner.workspace }}/vcpkg;$PATH"
+
           fi
-          
-          cd ..
+
+          cd ${{ runner.workspace }}${{ env.PROJECT_PATH }}
+          ${{ runner.workspace }}/vcpkg/vcpkg install          
+          cd ${{ runner.workspace }}
 
       - name: Build
         uses: LunarisLib/actions/CMake@master
         with:
           checkout: 'true'
-          project_path: ./.examples/CMake/
+          project_path: ${{ env.PROJECT_PATH }}
           artifact_name: ${{ matrix.os }}_PROJECT
 
       - name: Upload artifacts to see what's going on
