@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-set(VCPKG_ROOT $ENV{VCPKG_ROOT} CACHE PATH "Path to vcpkg installed directory")
-
+include ($ENV{CMAKE_TOOLCHAIN_FILE})
 
 project(Testing VERSION 1.0)
 
