@@ -9,10 +9,13 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.config.os }}
     strategy:
       matrix:
-        os: [ ubuntu-latest ] #[ubuntu-latest, windows-latest, macos-latest]
+        config:
+          - { name: "windows", os: windows-latest, cc: "cl", cxx: "cl", ext: ".exe" }
+          - { name: "ubuntu", os: ubuntu-latest, cc: "gcc", cxx: "g++", ext: "" }
+          - { name: "macos", os: macos-latest, cc: "clang", cxx: "clang++", ext: "" }
 
     steps:
     - uses: actions/checkout@v4
@@ -39,10 +42,11 @@ jobs:
         configurePreset: 'release'
         buildPreset: 'release'
         buildPresetAdditionalArgs: '--log-level=DEBUG'
+        configurePresetAdditionalArgs: '-DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }}'
 
     - name: Upload artifacts to see what's going on
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ matrix.os }}-artifact
+        name: ${{ matrix.config.os }}-artifact
         path: build
         include-hidden-files: 'true'
