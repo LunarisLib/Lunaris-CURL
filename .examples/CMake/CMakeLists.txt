@@ -27,8 +27,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 if (WIN32) 
     # Set paths to libcurl installed via Chocolatey
-    set(CURL_LIBRARY "C:\\ProgramData\\chocolatey\\lib\\curl\\lib")
-    set(CURL_INCLUDE_DIR "C:\\ProgramData\\chocolatey\\lib\\curl\\include")
+    set(CURL_LIBRARY $ENV{CURL_LIBRARY_ENV})
+    set(CURL_INCLUDE_DIR $ENV{CURL_INCLUDE_ENV})
 
     # Message to confirm paths are set (optional for debugging)
     message(STATUS "CURL_LIBRARY set to: ${CURL_LIBRARY}")
