@@ -37,3 +37,4 @@ jobs:
           checkout: 'true'
           project_path: ./.examples/CMake/
           artifact_name: ${{ matrix.os }}_PROJECT
+          extra_flags: '--verbose'
