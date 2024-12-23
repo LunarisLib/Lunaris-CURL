@@ -24,6 +24,7 @@ jobs:
           elif [ "${{ matrix.os }}" == "windows-latest" ]; then 
             choco install -y curl
             echo "C:\ProgramData\chocolatey\bin" >> $env:GITHUB_PATH
+            ls -aRl
           fi
 
       - name: Build
