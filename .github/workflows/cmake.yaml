@@ -25,8 +25,8 @@ jobs:
             choco install -y curl
             # echo "C:\ProgramData\chocolatey\lib\curl\tools" >> $env:GITHUB_PATH
             
-            echo "C:/ProgramData/chocolatey/lib/$(ls C:/ProgramData/chocolatey/lib | grep curl-)/bin"
-            echo "C:/ProgramData/chocolatey/lib/$(ls C:/ProgramData/chocolatey/lib | grep curl-)/bin" >> $env:GITHUB_PATH
+            echo "C:/ProgramData/chocolatey/lib/$(ls C:/ProgramData/chocolatey/lib/curl/tools/ | grep curl-)/bin"
+            echo "C:/ProgramData/chocolatey/lib/$(ls C:/ProgramData/chocolatey/lib/curl/tools/ | grep curl-)/bin" >> $env:GITHUB_PATH
           fi
 
       - name: Build
