@@ -25,7 +25,7 @@ jobs:
       run: |
         COMMIT_ID=$(git ls-remote https://github.com/microsoft/vcpkg  HEAD | awk '{ print $1}')
         echo "Latest commit on VCPKG: $COMMIT_ID"
-        printf "{\"default-compiler\":{\"builtin-baseline\":\"%s\"}}" $COMMIT_ID > ./.examples/CMake/vcpkg-configuration.json
+        printf "{\"default-compiler\":{\"builtin-baseline\":\"%s\"}}" $COMMIT_ID > ./vcpkg-configuration.json
         
     - name: Set up vcpkg
       uses: lukka/run-vcpkg@v11
