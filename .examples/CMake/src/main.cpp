@@ -5,8 +5,8 @@ int main()
 {
     std::cout << "Two examples of calls, one simple GET and other POST with GET params, header and post body" << std::endl;
 
-    const auto res = http::GET("http://v4.ipv6-test.com/api/myip.php");
-    const auto res2 = http::POST("https://echo.free.beeceptor.com",
+    const auto res = http::do_GET("http://v4.ipv6-test.com/api/myip.php");
+    const auto res2 = http::do_POST("https://echo.free.beeceptor.com",
         { 
             { "key1", "value1" },
             { "key2", "value2" }

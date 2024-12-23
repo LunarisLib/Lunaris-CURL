@@ -124,56 +124,56 @@ namespace http {
     }
 
 
-    response PUT    (const std::string& path, const request& req)
+    response do_PUT    (const std::string& path, const request& req)
     {
         return generic("PUT", {}, path, req);
     }
-    response PUT    (const std::string& path, const pairs& get, const request& req)
+    response do_PUT    (const std::string& path, const pairs& get, const request& req)
     {
         return generic("PUT", get, path, req);
     }
     
-    response DELETE (const std::string& path, const request& req)
+    response do_DELETE (const std::string& path, const request& req)
     {
         return generic("DELETE", {}, path, req);
     }
-    response DELETE (const std::string& path, const pairs& get, const request& req)
+    response do_DELETE (const std::string& path, const pairs& get, const request& req)
     {
         return generic("DELETE", get, path, req);
     }
     
-    response PATCH  (const std::string& path, const request& req)
+    response do_PATCH  (const std::string& path, const request& req)
     {
         return generic("PATCH", {}, path, req);
     }
-    response PATCH  (const std::string& path, const pairs& get, const request& req)
+    response do_PATCH  (const std::string& path, const pairs& get, const request& req)
     {
         return generic("PATCH", get, path, req);
     }
 
-    response GET   (const std::string& path, const request& req)
+    response do_GET   (const std::string& path, const request& req)
     {
         return generic("GET", {}, path, req);
     }
-    response GET   (const std::string& path, const pairs& get, const request& req)
+    response do_GET   (const std::string& path, const pairs& get, const request& req)
     {
         return generic("GET", get, path, req);
     }
     
-    response POST   (const std::string& path, const request& req)
+    response do_POST   (const std::string& path, const request& req)
     {
         return generic("POST", {}, path, req);
     }
-    response POST   (const std::string& path, const pairs& get, const request& req)
+    response do_POST   (const std::string& path, const pairs& get, const request& req)
     {
         return generic("POST", get, path, req);
     }
     
-    response OPTIONS(const std::string& path, const request& req)
+    response do_OPTIONS(const std::string& path, const request& req)
     {
         return generic("OPTIONS", {}, path, req);
     }
-    response OPTIONS(const std::string& path, const pairs& get, const request& req)
+    response do_OPTIONS(const std::string& path, const pairs& get, const request& req)
     {
         return generic("OPTIONS", get, path, req);
     }

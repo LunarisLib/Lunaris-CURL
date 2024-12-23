@@ -45,18 +45,18 @@ namespace http {
         request& set_file_data(std::string&&);
     };
 
-    response PUT    (const std::string&, const request& = {});
-    response PUT    (const std::string&, const pairs&, const request& = {});
-    response DELETE (const std::string&, const request& = {});
-    response DELETE (const std::string&, const pairs&,  const request& = {});
-    response PATCH  (const std::string&, const request& = {});
-    response PATCH  (const std::string&, const pairs&,  const request& = {});
-    response GET    (const std::string&, const request& = {});
-    response GET    (const std::string&, const pairs&,  const request& = {});
-    response POST   (const std::string&, const request& = {});
-    response POST   (const std::string&, const pairs&,  const request& = {});
-    response OPTIONS(const std::string&, const request& = {});
-    response OPTIONS(const std::string&, const pairs&,  const request& = {});
+    response do_PUT    (const std::string&, const request& = {});
+    response do_PUT    (const std::string&, const pairs&, const request& = {});
+    response do_DELETE (const std::string&, const request& = {});
+    response do_DELETE (const std::string&, const pairs&,  const request& = {});
+    response do_PATCH  (const std::string&, const request& = {});
+    response do_PATCH  (const std::string&, const pairs&,  const request& = {});
+    response do_GET    (const std::string&, const request& = {});
+    response do_GET    (const std::string&, const pairs&,  const request& = {});
+    response do_POST   (const std::string&, const request& = {});
+    response do_POST   (const std::string&, const pairs&,  const request& = {});
+    response do_OPTIONS(const std::string&, const request& = {});
+    response do_OPTIONS(const std::string&, const pairs&,  const request& = {});
 }
 
 #include "curl_cpp.ipp"
