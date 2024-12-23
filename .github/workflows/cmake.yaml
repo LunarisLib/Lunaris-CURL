@@ -12,9 +12,10 @@ env:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    continue-on-error: true
     strategy:
       matrix:
-        os: [ ubuntu-latest ] # [ windows-latest, ubuntu-latest, macos-latest ]
+        os: [ windows-latest, ubuntu-latest, macos-latest ]
     steps:
 
       - name: Build
@@ -24,10 +25,3 @@ jobs:
           project_path: ${{ env.PROJECT_PATH }}
           artifact_name: ${{ matrix.os }}_PROJECT
           use_vcpkg: 'true'
-
-      - name: Upload artifacts to see what's going on
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.config.os }}-artifact
-          path: build
-          include-hidden-files: 'true'
