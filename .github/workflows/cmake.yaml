@@ -9,46 +9,46 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.config.os }}
-#    env:
-#      CC: ${{ matrix.config.cc }}
-#      CXX: ${{ matrix.config.cxx }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        config:
-          #- { name: "windows", os: windows-latest, cc: "cl", cxx: "cl" }
-          - { name: "ubuntu", os: ubuntu-latest, cc: "gcc", cxx: "g++" }
-          #- { name: "macos", os: macos-latest, cc: "clang", cxx: "clang++" }
+        os: [ ubuntu-latest ] # [ windows-latest, ubuntu-latest, macos-latest ]
+    steps:  
+      - name: Setup VCPKG
+        id: vcpkg
+        shell: bash
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git ${{github.workspace}}/vcpkg
+          
+          #echo "path=${{github.workspace}}/vcpkg" >> $GITHUB_OUTPUT
+          
+          echo "VCPKG_ROOT=\"${{github.workspace}}/vcpkg\"" >> $GITHUB_ENV
+          echo "$VCPKG_ROOT" >> $GITHUB_PATH
 
-    steps:
-    - uses: actions/checkout@v4
+          echo "Current PATH: $GITHUB_PATH"
+          
+          cd vcpkg
 
-    - uses: lukka/get-cmake@latest
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then  
+            ./bootstrap-vcpkg.sh -disableMetrics
+          elif [ "${{ matrix.os }}" == "macos-latest" ]; then  
+            ./bootstrap-vcpkg.sh -disableMetrics
+          elif [ "${{ matrix.os }}" == "windows-latest" ]; then 
+            ./bootstrap-vcpkg.bat -disableMetrics
+          fi
+          
+          cd ..
 
-    - name: Get and save latest vcpkg commit to json config
-      id: vcpkg
-      shell: bash
-      run: |
-        COMMIT_ID=$(git ls-remote https://github.com/microsoft/vcpkg  HEAD | awk '{ print $1}')
-        echo "Latest commit on VCPKG: $COMMIT_ID"
-        echo "commit=$COMMIT_ID" >> $GITHUB_OUTPUT
-        
-    - name: Set up vcpkg
-      uses: lukka/run-vcpkg@v11
-      with:
-        vcpkgGitCommitId: ${{ steps.vcpkg.outputs.commit }}
-      
-    - name: Run CMake consuming CMakePreset.json and run vcpkg to build packages
-      uses: lukka/run-cmake@v10
-      with:
-        cmakeListsTxtPath: '${{ github.workspace }}/.examples/CMake/CMakeLists.txt'
-        configurePreset: 'release'
-        buildPreset: 'release'
-        buildPresetAdditionalArgs: '--log-level=DEBUG'
+      - name: Build
+        uses: LunarisLib/actions/CMake@master
+        with:
+          checkout: 'true'
+          project_path: ./.examples/CMake/
+          artifact_name: ${{ matrix.os }}_PROJECT
 
-    - name: Upload artifacts to see what's going on
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ matrix.config.os }}-artifact
-        path: build
-        include-hidden-files: 'true'
+      - name: Upload artifacts to see what's going on
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.config.os }}-artifact
+          path: build
+          include-hidden-files: 'true'

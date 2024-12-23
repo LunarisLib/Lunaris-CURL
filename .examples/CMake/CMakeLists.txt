@@ -2,10 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 
 project(Testing VERSION 1.0)
 
-if(DEFINED ENV{VCPKG_DEFAULT_TRIPLET} AND NOT DEFINED VCPKG_TARGET_TRIPLET)
-  set(VCPKG_TARGET_TRIPLET "$ENV{VCPKG_DEFAULT_TRIPLET}" CACHE STRING "The vcpkg triplet")
-endif()
-
 # Release?
 set(CMAKE_BUILD_TYPE Release)
 
