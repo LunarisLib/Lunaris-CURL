@@ -21,6 +21,8 @@ jobs:
           #- { name: "macos", os: macos-latest, cc: "clang", cxx: "clang++" }
 
     steps:
+    - uses: actions/checkout@v4
+    
     - uses: lukka/get-cmake@latest
 
     - name: Get and save latest vcpkg commit to json config
