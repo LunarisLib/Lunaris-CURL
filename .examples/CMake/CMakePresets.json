@@ -6,10 +6,6 @@
         "displayName": "Release",
         "generator": "Ninja",
         "binaryDir": "build",
-        "architecture": {
-            "strategy": "set",
-            "value": "x64"
-        },
         "cacheVariables": {
           "CMAKE_BUILD_TYPE": "Release",
           "CMAKE_TOOLCHAIN_FILE": {
