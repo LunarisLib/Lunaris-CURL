@@ -25,15 +25,15 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD_REQUIRED ON
 )
 
-if (WIN32) 
-    # Set paths to libcurl installed via Chocolatey
-    set(CURL_LIBRARY $ENV{CURL_LIBRARY_ENV})
-    set(CURL_INCLUDE_DIR $ENV{CURL_INCLUDE_ENV})
-
-    # Message to confirm paths are set (optional for debugging)
-    message(STATUS "CURL_LIBRARY set to: ${CURL_LIBRARY}")
-    message(STATUS "CURL_INCLUDE_DIR set to: ${CURL_INCLUDE_DIR}")
-endif()
+#if (WIN32) 
+#    # Set paths to libcurl installed via Chocolatey
+#    set(CURL_LIBRARY $ENV{CURL_LIBRARY_ENV})
+#    set(CURL_INCLUDE_DIR $ENV{CURL_INCLUDE_ENV})
+#
+#    # Message to confirm paths are set (optional for debugging)
+#    message(STATUS "CURL_LIBRARY set to: ${CURL_LIBRARY}")
+#    message(STATUS "CURL_INCLUDE_DIR set to: ${CURL_INCLUDE_DIR}")
+#endif()
 
 find_package( CURL REQUIRED )
 target_link_libraries(${PROJECT_NAME} CURL::libcurl )
