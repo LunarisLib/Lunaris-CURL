@@ -10,16 +10,17 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.config.os }}
+    env:
+      CC: ${{ matrix.config.cc }}
+      CXX: ${{ matrix.config.cxx }}
     strategy:
       matrix:
         config:
-          - { name: "windows", os: windows-latest, cc: "cl", cxx: "cl", ext: ".exe" }
-          - { name: "ubuntu", os: ubuntu-latest, cc: "gcc", cxx: "g++", ext: "" }
-          - { name: "macos", os: macos-latest, cc: "clang", cxx: "clang++", ext: "" }
+          #- { name: "windows", os: windows-latest, cc: "cl", cxx: "cl" }
+          - { name: "ubuntu", os: ubuntu-latest, cc: "gcc", cxx: "g++" }
+          #- { name: "macos", os: macos-latest, cc: "clang", cxx: "clang++" }
 
     steps:
-    - uses: actions/checkout@v4
-
     - uses: lukka/get-cmake@latest
 
     - name: Get and save latest vcpkg commit to json config
@@ -42,7 +43,6 @@ jobs:
         configurePreset: 'release'
         buildPreset: 'release'
         buildPresetAdditionalArgs: '--log-level=DEBUG'
-        configurePresetAdditionalArgs: '-DCMAKE_C_COMPILER=${{ matrix.config.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.config.cxx }}'
 
     - name: Upload artifacts to see what's going on
       uses: actions/upload-artifact@v4
