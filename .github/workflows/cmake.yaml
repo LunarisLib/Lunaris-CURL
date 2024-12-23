@@ -17,14 +17,14 @@ jobs:
     steps:      
     - uses: lukka/get-cmake@latest
 
-    - name: Retrieve latest vcpkg commit
+    - name: Get and save latest vcpkg commit to json config
       id: vcpkg
       shell: bash
       run: |
         COMMIT_ID=$(git ls-remote https://github.com/microsoft/vcpkg  HEAD | awk '{ print $1}')
         echo "Latest commit on VCPKG: $COMMIT_ID"
-        echo "commit=$COMMIT_ID" >> $GITHUB_OUTPUT
-
+        printf "{\"default-compiler\":{\"builtin-baseline\":\"%s\"}}" $COMMIT_ID > ./.examples/CMake/vcpkg-configuration.json
+        
     - name: Set up vcpkg
       uses: lukka/run-vcpkg@v11
       
@@ -34,7 +34,6 @@ jobs:
         cmakeListsTxtPath: '${{ github.workspace }}/.examples/CMake/CMakeLists.txt'
         configurePreset: 'release'
         buildPreset: 'release'
-        vcpkgGitCommitId: ${{ steps.vcpkg.outputs.commit }}
 
     - name: Upload artifacts to see what's going on
       uses: actions/upload-artifact@v4
