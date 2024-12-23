@@ -16,54 +16,14 @@ jobs:
       matrix:
         os: [ ubuntu-latest ] # [ windows-latest, ubuntu-latest, macos-latest ]
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup VCPKG
-        id: vcpkg
-        shell: bash
-        run: |
-          echo "Cloning vcpkg to ${{ github.workspace }}/vcpkg"
-
-          git clone https://github.com/microsoft/vcpkg.git ${{ github.workspace }}/vcpkg
-          
-          echo "Good."
-          
-          echo "VCPKG_ROOT=\"${{ github.workspace }}/vcpkg\"" >> $GITHUB_ENV
-          echo "${{ github.workspace }}/vcpkg" >> $GITHUB_PATH
-
-          echo "Current GITHUB_PATH: $GITHUB_PATH"
-          echo "Current PATH: $PATH"
-          echo "Setup..."
-
-          cd ${{ github.workspace }}/vcpkg
-          
-          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-
-            ./bootstrap-vcpkg.sh -disableMetrics
-            export PATH="${{ github.workspace }}/vcpkg:$PATH"
-
-          elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-
-            ./bootstrap-vcpkg.sh -disableMetrics
-            export PATH="${{ github.workspace }}/vcpkg:$PATH"
-
-          elif [ "${{ matrix.os }}" == "windows-latest" ]; then
-
-            ./bootstrap-vcpkg.bat -disableMetrics
-            export PATH="${{ github.workspace }}/vcpkg;$PATH"
-
-          fi
-
-          cd ${{ github.workspace }}/${{ env.PROJECT_PATH }}
-          ${{ github.workspace }}/vcpkg/vcpkg install          
-          cd ${{ github.workspace }}
 
       - name: Build
-        uses: LunarisLib/actions/CMake@master
+        uses: LunarisLib/actions/CMake@experimental
         with:
           checkout: 'true'
           project_path: ${{ env.PROJECT_PATH }}
           artifact_name: ${{ matrix.os }}_PROJECT
+          use_vcpkg: 'true'
 
       - name: Upload artifacts to see what's going on
         uses: actions/upload-artifact@v4
