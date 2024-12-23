@@ -25,10 +25,12 @@ jobs:
       run: |
         COMMIT_ID=$(git ls-remote https://github.com/microsoft/vcpkg  HEAD | awk '{ print $1}')
         echo "Latest commit on VCPKG: $COMMIT_ID"
-        printf "{\"default-compiler\":{\"builtin-baseline\":\"%s\"}}" $COMMIT_ID > ./vcpkg-configuration.json
+        echo "commit=$COMMIT_ID" >> $GITHUB_OUTPUT
         
     - name: Set up vcpkg
       uses: lukka/run-vcpkg@v11
+      with:
+        vcpkgCommitId: ${{ steps.vcpkg.outputs.commit }}
       
     - name: Run CMake consuming CMakePreset.json and run vcpkg to build packages
       uses: lukka/run-cmake@v10
