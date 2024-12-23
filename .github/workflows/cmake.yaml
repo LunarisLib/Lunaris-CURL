@@ -10,9 +10,9 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.config.os }}
-    env:
-      CC: ${{ matrix.config.cc }}
-      CXX: ${{ matrix.config.cxx }}
+#    env:
+#      CC: ${{ matrix.config.cc }}
+#      CXX: ${{ matrix.config.cxx }}
     strategy:
       matrix:
         config:
@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - uses: lukka/get-cmake@latest
 
     - name: Get and save latest vcpkg commit to json config
