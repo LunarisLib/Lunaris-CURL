@@ -1,13 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
 
-if (WIN32)
-    set(VCPKG_TARGET_TRIPLET "x64-windows" CACHE STRING "")
-elseif(UNIX AND NOT APPLE)
-    set(VCPKG_TARGET_TRIPLET "x64-linux" CACHE STRING "")
-else()
-    set(VCPKG_TARGET_TRIPLET "arm64-osx" CACHE STRING "")
-endif()
-
 include ($ENV{CMAKE_TOOLCHAIN_FILE})
 
 project(Testing VERSION 1.0)
