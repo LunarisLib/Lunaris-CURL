@@ -54,7 +54,7 @@ jobs:
 
           fi
 
-          cd ${{ runner.workspace }}${{ env.PROJECT_PATH }}
+          cd ${{ runner.workspace }}/${{ env.PROJECT_PATH }}
           ${{ runner.workspace }}/vcpkg/vcpkg install          
           cd ${{ runner.workspace }}
 
