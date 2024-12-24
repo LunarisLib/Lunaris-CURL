@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.15)
 
-include ($ENV{CMAKE_TOOLCHAIN_FILE})
+if (DEFINED $ENV{CMAKE_TOOLCHAIN_FILE})
+    include ($ENV{CMAKE_TOOLCHAIN_FILE})
+endif()
 
 project(Testing VERSION 1.0)
 
