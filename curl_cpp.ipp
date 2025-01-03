@@ -81,6 +81,7 @@ namespace http {
 
         curl_easy_setopt(m_c.get(), CURLOPT_URL, parsed_url.c_str());
         curl_easy_setopt(m_c.get(), CURLOPT_CUSTOMREQUEST, type); 
+        curl_easy_setopt(m_c.get(), CURLOPT_FOLLOWLOCATION, 1L); 
 
         // post body data
         if (req.post_body.size()) {
